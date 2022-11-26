@@ -1,0 +1,11 @@
+<% console.log("profiles:: ", profiles.length) %>
+<h2>Other Profiles</h2>
+<ul class="sideBar">
+    <% if (profiles.length > 0) { %>
+        <% for (let i = 0; i < profiles.length; i++) { %>
+            <li class="no-disc"><a href="<%= profiles[i].id%>"><%= profiles[i].name%></a></li>
+        <% } %>
+    <% } else { %>
+        <h3>So far, only you! ;)</h3>
+    <% } %>
+</ul>

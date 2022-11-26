@@ -1,0 +1,33 @@
+<% console.log("profile--- ", profiles); %>
+<% console.log("profile--- ", profiles[0].name ); %>
+<section class="profiles-page">
+    <h1><%= title %></h1> 
+    <h4><a href="/profiles/create">Create a New Profile</a></h4>
+
+    <form
+        action="/profiles/search"
+        method="post"
+    >
+        <h4>Search for name</h4>
+        <input type="text" name="searchFor" id="">
+        <input type="submit" value="Search">
+    </form>
+
+    <div class="profiles-list">
+        <ul class="no-disc">
+            <h2>Result</h2>
+            
+            <% if (profiles.length > 0) { %>
+                <% for (let i = 0; i < profiles.length; i++) { %>
+                    <li>
+                        <a href="../profiles/<%= profiles[i].id %>"><%= profiles[i].name%></a>
+                        <a href="/profiles/edit/<%= profiles[i].id %>"><button>Edit</button></a>
+                        <a href="/profiles/delete/<%=profiles[i].id%>"><button>Delete</button></a>
+                    </li>
+                <% } %>
+            <% } else { %>
+                <h3><%= message %></h3>
+            <% } %>
+        </ul>
+    </div>
+</section>

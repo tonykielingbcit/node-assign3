@@ -1,0 +1,50 @@
+
+npm ini -y
+npm i express ejs express-ejs-layouts morgan body-parser
+npm i nodemon --save-dev
+create dir structure
+set 'npm run dev '
+Create a public directory and instruct express to use it for static files.  It should include sub-directories for:
+    /images
+    /styles
+Create a routers directory containing 3 routers (details to follow)
+    indexRouter
+        handles get requests for home, about, and contact pages
+        handles post requests for contact page
+    profilesRouter
+        handles get requests for profiles listing page and individual profiles (via route params)
+        apiRouter
+    handles get request for /api/profiles 
+Add a views directory containing
+    index.ejs
+    about.ejs
+    contact.ejs
+    profiles.ejs
+    profile.ejs
+    A layouts subdirectory containing
+        a full-width template
+        a template with a sidebar 
+    A partials subdirectory containing
+        header.ejs
+        footer.ejs
+Add a data directory containing profiles.json (example attached).
+code app.js 
+code routes
+code pages
+code profiles
+code profile
+code contact
+styling / adjustments / tweakings and cleaning up
+
+
+-------------------------------------------------------
+day-04 assignment
+-------------------------------------------------------
+
+1- npm i mongoose
+2- insert mongoose into the application
+3- create schema
+4- create views for Create Retrieve Update Delete actions
+5- insert the DB actions on the controller
+6- set the routes
+8- refine UI

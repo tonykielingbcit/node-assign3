@@ -1,0 +1,51 @@
+<% let msg = ""; %>
+<% if (typeof errorMessage !== "undefined") { %>
+    <%   msg = errorMessage; %>
+<% } %>
+<% if (typeof message !== "undefined") { %>
+    <%   msg = message; %>
+<% } %>
+
+<% console.log(" inside EDIT: " + profile + "!!!"); %>
+<% const name = profile.name %>
+<% console.log("NAME::: " + name) %>
+<% const id = profile._id %>
+<form 
+    action="/profiles/update/<%= profile._id %>"
+    method="post"
+>
+    <section class="contact-page">
+        <h2 class="contact-h2">Edit Profile</h2>
+        <h2 id="message" class="contact-message"> <%= msg %> </h2>
+
+        <% if (typeof errorMessage === "undefined") { %>
+            <h2>Name</h2>
+            <input type="text" name="name" id="" value="<%=profile.name%>">
+            
+            <h2>Interests</h2>
+            <% for (let i = 0; i < profile.interests.length; i++) { %>
+                <input type="text" name="interest<%= i%>" id="" value="<%= profile.interests[i] %>">
+            <% } %>
+            
+            <input type="text" name="additionals" placeholder="Add more interests separated by commas">
+
+            <!-- last item has to have a Add button -->
+            <!-- <button>Add</button> -->
+            
+            <h2>Profile's picture</h2>
+            <img
+                src=""
+                alt=""
+                width="100%"
+            />
+
+            <input 
+                id="submitButtonYes"
+                type="submit"
+                class="contact-button"
+                title="Yes"
+                value="Yes"
+            >
+        <% } %>
+    </section>
+</form>

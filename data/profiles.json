@@ -1,0 +1,44 @@
+[
+    {
+        "id": "byulkim",
+        "name": "Byul Kim",
+        "imagePath": "/images/byul.jpg",
+        "interests": [
+            "Listening to Music",
+            "Drinking",
+            "Foods"
+        ]
+    },
+    {
+        "id": "ginnichopra",
+        "name": "Ginni Chopra",
+        "imagePath": "/images/ginni.jpg",
+        "interests": [
+            "Yoga",
+            "Cooking",
+            "Listening to Music",
+            "Coffee"
+        ]
+    },
+    {
+        "id": "sholmes",
+        "name": "Stephanie Holmes",
+        "imagePath": "/images/steph.jpg",
+        "interests": [
+            "Gaming",
+            "Sewing",
+            "Chihuahuas"
+        ]
+    },
+    {
+        "id": "tonyk",
+        "name": "Tony Kieling",
+        "imagePath": "/images/tony.jpg",
+        "interests": [
+            "Family",
+            "Exercises",
+            "Yoga",
+            "Cooking"
+        ]
+    }
+]

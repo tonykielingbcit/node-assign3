@@ -1,0 +1,272 @@
+@charset "utf-8";
+
+/* general */
+html {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+
+.no-disc {
+    list-style-type: none;
+}
+
+
+
+/* main/body */
+main {
+    background-color: lightgray;
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    justify-content: space-between;
+}
+
+
+
+/* header */
+header {
+    background-color: aquamarine;
+    height: 3.5rem;
+}
+
+a {
+    text-decoration: none;
+}
+
+.menu {
+    margin-left: 1rem;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.menu-items {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 7rem;
+    font-size: 25px;
+}
+
+.menu-items:hover {
+    background-color: antiquewhite;
+    color: brown;
+    border-radius: 15px;
+}
+
+
+
+/* home page*/
+.index-page {
+    text-align: center;
+    margin-top: 5rem;
+    color: blue;
+    font-size: 35px;
+    font-weight: bold
+}
+
+.index-h2 {
+    margin-top: 5rem;
+}
+
+
+
+/* profiles page */
+.profiles-page {
+    margin: 3rem 0 0 4rem;
+}
+
+.profiles-list {
+    line-height: 2.5rem;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+
+
+/* profile page */
+.profile-container {
+    padding: 0 10rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.profile-section1 {
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    /**************/
+    border: 1px solid gray;
+    margin-top: 2rem;
+    padding: 1rem;
+}
+
+.profile-name {
+    text-align: center;
+    font-size: 30px;
+}
+
+.profile-inters h2 {
+    text-align: center;
+}
+
+.profile-inters ul {
+    padding-left: 5rem;
+}
+
+.profile-list {
+    list-style-type: lower-greek;
+}
+
+.profile-section2 {
+    margin-top: 3rem;
+}
+
+.profile-list-item {
+    display: flex;
+}
+
+.details-title-container {
+    text-align: center;
+}
+.details-h2 {
+    margin-top: 0.5rem;
+    display: inline;
+    margin: 0 1rem;
+}
+
+.search-name-label {
+    font-weight: bold;
+}
+
+/* sideBar */
+.sideBar-others h2 {
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 1rem;
+}
+
+.sideBar-others ul {
+    margin: 0;
+    padding: 0;
+}
+
+.sideBar-others {
+    padding: 1rem;
+    border: 1px solid grey;
+    border-radius: 8px;
+}
+
+.sideBar {
+    font-weight: bold;
+    line-height: 2rem;
+}
+
+.sideBar li {
+    margin-left: 2rem;
+    margin-right: 1rem;
+}
+
+
+
+/* error page */
+.error-page {
+    text-align: center;
+    color: red;
+}
+
+
+
+/* contact page */
+.contact-page {
+    border: 1px solid gray;
+    padding: 1rem;
+    margin: 3rem auto;
+    max-width: 60%;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.contact-h2 {
+    text-align: center;
+}
+
+.contact-message {
+    color: blue;
+    text-align: center;
+}
+
+.contact-textarea {
+    padding: 1rem;
+    margin: auto;
+    width: 80%;
+    border-radius: 7px;
+}
+
+.contact-button {
+    margin: 1rem auto;
+    width: 50%;
+    height: 2rem;
+    border-radius: 15px;
+    border: 0.5px solid green;
+    background-color: darkcyan;
+    color: gold;
+    font-weight: bold;
+    font-size: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.contact-button:hover {
+    background-color: greenyellow;
+    color: darkgreen;
+}
+
+
+
+/* about page */
+.about-page {
+    margin: auto;
+    text-align: center;
+}
+
+
+
+/* footer */
+footer {
+    background-color: aquamarine;
+    height: 2.5rem;
+    width: 100%;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}

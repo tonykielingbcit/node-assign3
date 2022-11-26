@@ -1,0 +1,45 @@
+
+<% let msg = ""; %>
+<% if (typeof message !== "undefined") { %>
+    <%   msg = message; %>
+<% } else { %>
+    <% msg = errorMessage; %>
+<% } %>
+
+<% console.log(" inside deleteeeeeeeeee: " + profile + "!!!"); %>
+<% const id = profile._id %>
+<form 
+    action="/profiles/delete/<%= profile._id %>"
+    method="post"
+>
+    <section class="contact-page">
+        <h2 class="contact-h2">Delete Profile</h2>
+        <h2 id="message" class="contact-message"> <%= msg %> </h2>
+
+        <% if (typeof errorMessage === "undefined") { %>
+            <h2>Name: <%= profile.name %></h2>
+            
+            <h2>Interests</h2>
+            <% for (let i = 0; i < profile.interests.length; i++) { %>
+                <h2><%= profile.interests[i] %></h2>
+            <% } %>
+            
+            <% if (typeof showButtons !== "undefined") { %>
+                <input 
+                    id="submitButtonYes"
+                    type="submit"
+                    class="contact-button"
+                    title="Yes"
+                    value="Yes"
+                >
+                <input 
+                    id="submitButtonNo"
+                    type="submit"
+                    class="contact-button"
+                    title="No"
+                    value="No"
+                >
+            <% } %>
+        <% } %>
+    </section>
+</form>

@@ -1,0 +1,28 @@
+
+<section class="profile-container">
+    <article class="profile-section1">
+        <div style="width: 350px;">
+            <h1 class="profile-name"><%= person.name %></h1>
+            <img
+                src="<%= person.imagePath %>"
+                alt="Headshot of <%= person.name %>"
+                width="100%"
+            />
+        </div>
+
+        <div class="profile-inters">
+            <h2>Interests</h2>
+            <ul class="profile-list">
+                <% for (let i = 0; i < person.interests.length; i++) { %>
+                    <li><%= person.interests[i]%></li>
+                <% } %>
+            </ul>
+        </div>
+    </article>
+    
+    <article class="profile-section2">
+        <div class="sideBar-others">
+            <%- include('./layouts/sideBar.ejs') %>
+        </div>
+    </article>
+</section>

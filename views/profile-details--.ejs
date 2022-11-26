@@ -1,0 +1,36 @@
+
+<% let msg = ""; %>
+<% if (typeof message !== "undefined") { %>
+    <%   msg = message; %>
+<% } %>
+<% console.log("------inside DETIALS: ", profiles) %>
+
+<form 
+    action="/contact"
+    method="post"
+>
+    <section class="contact-page">
+        <h2 class="contact-h2">Details Profile</h2>
+        <h2 id="message" class="contact-message"> <%= msg %> </h2>
+
+        <h2>Profile Id: <%= profile._id %> </h2>
+        <h2>Name: <%= profile.name %></h2>
+        <h2>Interests</h2>
+        <% for (let i = 0; i < profile.interests.length; i++) { %>
+            <h2><%= profile.interests[i] %></h2>
+        <% } %>
+        
+        <h2>Your Image</h2>
+        <img
+            src=""
+            alt=""
+            width="100%"
+        />
+        
+        <article class="profile-section2">
+            <div class="sideBar-others">
+                <%- include(layoutPath) %>
+            </div>
+        </article>
+    </section>
+</form>

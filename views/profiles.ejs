@@ -1,0 +1,26 @@
+
+<section class="profiles-page">
+    <h1><%= title %></h1> 
+    <h4><a href="/profiles/create">Create a New Profile</a></h4>
+
+    <form
+        action="/profiles/search"
+        method="post"
+    >
+        <span class="search-name-label">Search for name: </span>
+        <input type="text" name="searchFor" id="">
+        <input type="submit" value="Search">
+    </form>
+
+    <div class="profiles-list">
+        <ul class="no-disc">
+            <% for (let i = 0; i < profiles.length; i++) { %>
+                <li>
+                    <a href="../profiles/<%= profiles[i].id %>"><%= profiles[i].name%></a>
+                    <a href="/profiles/edit/<%= profiles[i].id %>"><button>Edit</button></a>
+                    <a href="/profiles/delete/<%=profiles[i].id%>"><button>Delete</button></a>
+                </li>
+            <% } %>
+        </ul>
+    </div>
+</section>
