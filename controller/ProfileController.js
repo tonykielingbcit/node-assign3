@@ -21,7 +21,7 @@ exports.Search = async (req, res) => {
     return res.render("profile-search", {
         title: "Express Yourself - Search",
         profiles,
-        message: `No profile has been found for *${nameToSearch}'*`
+        message: `No profile has been found for *${nameToSearch}*`
       });
 }
 
@@ -59,8 +59,7 @@ exports.Create = async function (request, response) {
 exports.CreateProfile = async function (request, response) {
   // instantiate a new Profile Object populated with form data
   let tempProfileObj = new Profile({
-    name: request.body.name,
-    interests: [1, 2, 3]
+    name: request.body.name
   });
 
   //
@@ -130,7 +129,6 @@ exports.EditProfile = async (req, res) => {
     console.log(`loading single profile by id ${profileId}`);
     let profile = await _profileActions.getProfileById(profileId);
     const validProfile = (typeof profile.name !== undefined) ? true : false;
-    console.log("=========sending this profile:::: ", profile);
 
     res.render("profile-edit", {
         title: "Update Profile",
@@ -140,19 +138,15 @@ exports.EditProfile = async (req, res) => {
 };
 
 exports.UpdateProfile = async (req, res) => {
-    console.log("---------------------------------- before go to DB to UPDATE:");
     // console.log("req.body", req.body);
     const profileId = req.params.id;
 
-    // const updateIsValid = _profileActions.updateProfile(tempProfileObj);
     const updateProfile = await _profileActions.updateProfile(req.body, profileId);
-    // console.log("AFTEEEEEEEEEEERRRRRRRRRRR UPLOADING: ", updateIsValid);
 
     // RECEIVE A MESSAGE from the action and set to the render accordingly
     return res.render("profile-edit", {
         title: "Update Profile",
         profile: updateProfile.profile,
-        message: updateProfile.message,
-        // css-class accordingly to the XPathResult.success
+        message: updateProfile.message
       });
 };

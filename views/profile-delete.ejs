@@ -13,33 +13,35 @@
     method="post"
 >
     <section class="contact-page">
-        <h2 class="contact-h2">Delete Profile</h2>
+        <div class="details-title-container">
+            <h2 class="details-h2">Delete Profile</h2>
+            <span><a href="/profiles" class="details-edit-bt">Return to List</a></span>
+        </div>
+
         <h2 id="message" class="contact-message"> <%= msg %> </h2>
 
-        <% if (typeof errorMessage === "undefined") { %>
-            <h2>Name: <%= profile.name %></h2>
-            
-            <h2>Interests</h2>
-            <% for (let i = 0; i < profile.interests.length; i++) { %>
-                <h2><%= profile.interests[i] %></h2>
-            <% } %>
-            
+        <div class="delete-buttons-container">
             <% if (typeof showButtons !== "undefined") { %>
                 <input 
                     id="submitButtonYes"
                     type="submit"
-                    class="contact-button"
+                    class="contact-button delete-button db-yes"
                     title="Yes"
                     value="Yes"
                 >
-                <input 
-                    id="submitButtonNo"
-                    type="submit"
-                    class="contact-button"
-                    title="No"
-                    value="No"
-                >
             <% } %>
-        <% } %>
+        </div>
+
+        <div class="edit-texts-container">
+            <% if (typeof errorMessage === "undefined") { %>
+                <h2>Name: <%= profile.name %></h2>
+                
+                <h2>Interests</h2>
+                <% for (let i = 0; i < profile.interests.length; i++) { %>
+                    <p class="delete-list-items"><%= profile.interests[i] %></p>
+                <% } %>
+                
+            <% } %>
+        </div>
     </section>
 </form>

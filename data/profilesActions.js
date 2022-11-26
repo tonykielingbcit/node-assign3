@@ -18,13 +18,9 @@ class ProfileOps {
   }
 
   async searchFor(str) {
-    console.log("GOINGGGGGGGGG TO SEARH: ", str);
-    // const param = new RegExp("/.*" + str + ".*/");
     const param = new RegExp(".*" + str + ".*");
 
-    console.log("param", param);
     const profile = await Profile.find({name:{'$regex' : param, '$options' : 'i'}})
-    console.log("SEARCHHHHHHHHH: ",   profile);
     return (typeof profile.name !== undefined
               ? profile
               : undefined) ;
@@ -60,12 +56,6 @@ class ProfileOps {
   }
 
   async deleteProfile(id) {
-    console.log("===X=X=X=X=deleting: ", id);
-    // if (1)
-    //     return({
-    //         success: false,
-    //         message: "wwwwwwwwwwwww"
-    //     });
     try {
         const deleteAction = await Profile.deleteOne( { "_id" : id });
         if (deleteAction.deletedCount > 0)
@@ -86,21 +76,25 @@ class ProfileOps {
 
 
   async updateProfile(bodyContent, profileId) {
-    console.log("--receiving========== ", bodyContent, " id: " + "!!!");
+    console.log("--------receiving========== ", bodyContent, " id: " + "!!!");
     console.log("inside updateProfile!!!!!!!!!!!!!!!!!");
 
-    const interests = [];
+    const additionals = bodyContent.additionals.split(",");
+    const addTrimmed = additionals.map(e => e.trim());
+
+
+    let interests = [];
     for(let item in bodyContent)
         if (item.includes("interest"))
             interests.push(bodyContent[item]);
+    interests = [...interests, ...addTrimmed];
     
-    console.log("----------only interests::: ", interests);
     const profileObj = new Profile({
         _id: profileId,
         name: bodyContent.name,
         interests
       });
-console.log("--new profileOBJ== ", profileObj);
+// console.log("--new profileOBJ== ", profileObj);
     
     let response = {};
     try {
@@ -111,7 +105,6 @@ console.log("--new profileOBJ== ", profileObj);
       // console.log("inside updateProfile!!!!!!!!!!!!!!!!! VALIDDDDDDDDDD MODEL!!!!!!!");
 
       const profileToUpdate = await Profile.findById(profileObj._id);
-      // console.log("temppppppppppppppppppppppppppppppppp BEFORE", profileToUpdate);
       profileToUpdate.name = profileObj.name;
       profileToUpdate.interests = profileObj.interests
       // console.log("temppppppppppppppppppppppppppppppppp AFTER", profileToUpdate);
@@ -126,7 +119,6 @@ console.log("--new profileOBJ== ", profileObj);
       
       console.log("=========RESPONSE:::::::: ", response);
     } catch (err) {
-        console.log("YEAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH", err);
         response = {
           obj: profileObj,
           success: false,

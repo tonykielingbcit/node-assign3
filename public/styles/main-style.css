@@ -93,11 +93,22 @@ a {
     margin-top: 5rem;
 }
 
-
+.text-field {
+    width: 50%;
+}
 
 /* profiles page */
 .profiles-page {
     margin: 3rem 0 0 4rem;
+}
+
+.profiles-list-table {
+    display: flex;
+    justify-content: center;
+}
+
+.profiles-list-table-buttons {
+    padding-left: 1rem;
 }
 
 .profiles-list {
@@ -106,6 +117,17 @@ a {
     font-size: 18px;
 }
 
+.edit-texts-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.delete-buttons-container {
+    display: flex;
+    justify-content: space-around;
+    color: black;
+}
 
 
 /* profile page */
@@ -269,4 +291,21 @@ footer {
     justify-content: center;
     align-items: center;
     font-weight: bold;
+}
+
+
+.delete-button {
+    width: 8rem;
+}
+
+.db-yes {
+    background-color: red;
+}
+
+.db-no {
+    background-color: blue;
+}
+
+.delete-list-items {
+    margin: 0;
 }

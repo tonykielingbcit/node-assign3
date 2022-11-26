@@ -12,15 +12,23 @@
         <input type="submit" value="Search">
     </form>
 
-    <div class="profiles-list">
-        <ul class="no-disc">
+    <div class="profiles-list-table">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th></th>
+            </tr>
             <% for (let i = 0; i < profiles.length; i++) { %>
-                <li>
-                    <a href="../profiles/<%= profiles[i].id %>"><%= profiles[i].name%></a>
-                    <a href="/profiles/edit/<%= profiles[i].id %>"><button>Edit</button></a>
-                    <a href="/profiles/delete/<%=profiles[i].id%>"><button>Delete</button></a>
-                </li>
+                <tr>
+                    <td>
+                        <a href="../profiles/<%= profiles[i].id %>"><%= profiles[i].name%></a>
+                    </td>
+                    <td class="profiles-list-table-buttons">
+                        <a href="/profiles/edit/<%= profiles[i].id %>"><button>Edit</button></a>
+                        <a href="/profiles/delete/<%=profiles[i].id%>"><button>Delete</button></a>
+                    </td>
+                </tr>
             <% } %>
-        </ul>
+        </table>
     </div>
 </section>

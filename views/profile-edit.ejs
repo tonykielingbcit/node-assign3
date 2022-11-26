@@ -15,37 +15,39 @@
     method="post"
 >
     <section class="contact-page">
-        <h2 class="contact-h2">Edit Profile</h2>
+        <div class="details-title-container">
+            <h2 class="details-h2">Edit Profile</h2>
+            <span><a href="/profiles" class="details-edit-bt">Return to List</a></span>
+        </div>
         <h2 id="message" class="contact-message"> <%= msg %> </h2>
 
-        <% if (typeof errorMessage === "undefined") { %>
-            <h2>Name</h2>
-            <input type="text" name="name" id="" value="<%=profile.name%>">
-            
-            <h2>Interests</h2>
-            <% for (let i = 0; i < profile.interests.length; i++) { %>
-                <input type="text" name="interest<%= i%>" id="" value="<%= profile.interests[i] %>">
+        <div class="edit-texts-container">
+            <% if (typeof errorMessage === "undefined") { %>
+                <h2>Name</h2>
+                <input type="text" name="name" id="" value="<%=profile.name%>" class="text-field">
+                
+                <h2>Interests</h2>
+                <% for (let i = 0; i < profile.interests.length; i++) { %>
+                    <input type="text" name="interest<%= i%>" id="" value="<%= profile.interests[i] %>" class="text-field">
+                <% } %>
+                
+                <input type="text" name="additionals" placeholder="Add more interests separated by commas" class="text-field">
+                
+                <h2>Profile's picture</h2>
+                <img
+                    src=""
+                    alt=""
+                    width="100%"
+                />
+    
+                <input 
+                    id="updateButton"
+                    type="submit"
+                    class="contact-button"
+                    title="Yes"
+                    value="Update"
+                >
             <% } %>
-            
-            <input type="text" name="additionals" placeholder="Add more interests separated by commas">
-
-            <!-- last item has to have a Add button -->
-            <!-- <button>Add</button> -->
-            
-            <h2>Profile's picture</h2>
-            <img
-                src=""
-                alt=""
-                width="100%"
-            />
-
-            <input 
-                id="submitButtonYes"
-                type="submit"
-                class="contact-button"
-                title="Yes"
-                value="Yes"
-            >
-        <% } %>
+        </div>
     </section>
 </form>
