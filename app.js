@@ -3,7 +3,8 @@
 //MongoDB connection setup
 const { mongoose } = require("mongoose");
 const uri =
-  "mongodb+srv://jsolomon:JSolomon_11-30th@cluster0.iw7hm03.mongodb.net/node-day-04?retryWrites=true&w=majority";
+  "mongodb+srv://***U-S-E-R***:***P-A-S-S-W-O-R-D***@cluster0.iw7hm03.mongodb.net/node-day-04?retryWrites=true&w=majority";
+
 
 // set up default mongoose connection
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
