@@ -23,6 +23,8 @@ const logger = require('morgan');
 const path = require("path");
 const expressLayouts = require("express-ejs-layouts");
 const cors = require("cors");
+const fileUpload = require("express-fileupload");
+
 
 // Use environment variable if defined, or a fixed value if not.
 const PORT = process.env.PORT || 3003;
@@ -54,6 +56,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
+// handle image upload
+app.use(fileUpload({
+    createParentPath: true,
+  })
+);
+  
 
 // call the routes
 app.use("/profiles", profilesRouter);
@@ -61,7 +69,8 @@ app.use("/api", apiProfilesRouter);
 app.use(indexRouter);
 
 
-app.get("*", (req, res) => res.status(404).send("<h2 style='text-align: center; color: red; margin-top: 2rem;'>No page has been found</h2>"));
+app.get("*", (req, res) => res.status(404)
+                            .send("<h2 style='text-align: center; color: red; margin-top: 2rem;'>No page has been found</h2>"));
 
 // app is listening
 app.listen(PORT, () => {

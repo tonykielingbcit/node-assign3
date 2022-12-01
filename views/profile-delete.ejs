@@ -37,10 +37,15 @@
                 <h2>Name: <%= profile.name %></h2>
                 
                 <h2>Interests</h2>
-                <% for (let i = 0; i < profile.interests.length; i++) { %>
-                    <p class="delete-list-items"><%= profile.interests[i] %></p>
+                <% if (profile.interests.length < 1) { %>
+                    <h4 class="text-centered">No interestes added so far</h4>
+                <% } else { %>
+                    <ul class="profile-list">
+                        <% for (let i = 0; i < profile.interests.length; i++) { %>
+                            <li><%= profile.interests[i]%></li>
+                        <% } %>
+                    </ul>
                 <% } %>
-                
             <% } %>
         </div>
     </section>

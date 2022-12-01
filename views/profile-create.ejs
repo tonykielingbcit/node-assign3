@@ -1,37 +1,38 @@
 
 <% let msg = ""; %>
-<% if (typeof message !== "undefined") { %>
-    <%   showMessage = "Thank you for your message!"; %>
+<% if (typeof errorMessage !== "undefined") { %>
+    <%   msg = errorMessage; %>
 <% } else {  %>
-    <%   showMessage = ""; %>
+    <%   msg = ""; %>
 <% } %>
 
 <form 
     action="/profiles/create"
     method="post"
+    enctype="multipart/form-data"
 >
-    <section class="contact-page">
+    <section class="create-page">
         <h2 class="contact-h2">Create Profile</h2>
-        <h2 id="message" class="contact-message"> <%= showMessage %> </h2>
+        <h2 id="message" class="error-message"> <%= msg %></h2>
 
-        <h2>Name</h2>
-        <input type="text" name="name" id="">
-        <h2>Interests</h2>
-        <input type="text" name="int1" id="">
-        <input type="text" name="int2" id="">
-        <input type="text" name="int3" id="">
-        <h2>Add your picture</h2>
-        <img
-            src=""
-            alt=""
-            width="100%"
-        />
-        <input 
-            id="createButton"
-            type="submit"
-            class="contact-button"
-            title="Click to add the new Profile"
-            value="Save Profile"
-        >
+        <div class="create-container">
+            <h2>Name</h2>
+            <input type="text" name="name" id="" class="create-inputs" value="<%= (profile && profile.name) || ""%>">
+            <h2>Interests</h2>
+            <input type="text" name="int1" id="" class="create-inputs" value="<%= (profile && profile.int1) || ""%>">
+            <input type="text" name="int2" id="" class="create-inputs" value="<%= (profile && profile.int2) || ""%>">
+            <input type="text" name="int3" id="" class="create-inputs" value="<%= (profile && profile.int3) || ""%>">
+            
+            <h2>Add your picture</h2>
+            <input type="file" name="imagePath" accept="image/gif, image/jpeg"/>
+            
+            <input 
+                id="createButton"
+                type="submit"
+                class="contact-button"
+                title="Click to add the new Profile"
+                value="Save Profile"
+            >
+        </div>
     </section>
 </form>

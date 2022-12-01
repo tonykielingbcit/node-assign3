@@ -1,3 +1,6 @@
+"use strict"
+
+const path = require("path");
 const Profile = require("../models/Profile.js");
 
 class ProfileOps {
@@ -26,20 +29,48 @@ class ProfileOps {
               : undefined) ;
   }
 
-  async createProfile(profileObj) {
-    console.log("profileObj========== ", profileObj);
+  async createProfile(input, img) {
     try {
-      const error = await profileObj.validateSync();
+      const { name } = input;
+      const { imagePath } = img || {};
+
+      const interests = [];
+      for(let item in input)
+        if (item.includes("int") && (input[item].length > 0))
+          interests.push(input[item]);
+
+      let tempProfileObj = new Profile({
+        name,
+        imagePath: (imagePath && imagePath.name) || undefined,
+        interests
+      });
+
+      const error = await tempProfileObj.validateSync();
+
       if (error) {
+        console.log("XXX Model is not valid!");
         const response = {
-          obj: profileObj,
-          errorMsg: error.message,
+          obj: input,
+          errorMessage: error
         };
         return response; // Exit if the model is invalid
       }
 
       // Model is valid, so save it
-      const result = await profileObj.save();
+      if (imagePath) {
+        const recordImgAt = path.join(__dirname, "..", "public", "images", imagePath.name);
+        await imagePath.mv(recordImgAt, (err) => {
+          if (err) {
+            return({
+              obj: input,
+              errorMessage: err
+            })
+          }
+        });
+      }
+      
+      // save data on DB
+      const result = await tempProfileObj.save();
       const response = {
         obj: result,
         errorMsg: "",
@@ -48,8 +79,8 @@ class ProfileOps {
 
     } catch (error) {
       const response = {
-        obj: profileObj,
         errorMsg: error.message,
+        obj: input
       };
       return response;
     }
@@ -75,39 +106,70 @@ class ProfileOps {
   }
 
 
-  async updateProfile(bodyContent, profileId) {
-    console.log("--------receiving========== ", bodyContent, " id: " + "!!!");
-    console.log("inside updateProfile!!!!!!!!!!!!!!!!!");
+  async updateProfile(bodyContent, profileId, files) {
+    let response = {
 
-    const additionals = bodyContent.additionals.split(",");
-    const addTrimmed = additionals.map(e => e.trim());
+    };
 
+    const initial = {
+      name: bodyContent.name,
+      imagePath: ((files && files.imagePath && files.imagePath.name) || (bodyContent.imagePath || bodyContent.tempImagePath) || ""),
+      interests: bodyContent.interests ?? []
+    }
 
-    let interests = [];
-    for(let item in bodyContent)
-        if (item.includes("interest"))
-            interests.push(bodyContent[item]);
-    interests = [...interests, ...addTrimmed];
-    
-    const profileObj = new Profile({
-        _id: profileId,
-        name: bodyContent.name,
-        interests
-      });
-// console.log("--new profileOBJ== ", profileObj);
-    
-    let response = {};
     try {
-      // it has not been able to valid the model.............
+      const addTrimmed = [];
+      if (bodyContent.additionals !== "") {
+        const additionals = bodyContent.additionals.split(",");
+        for (let i of additionals)
+          if (i.trim().length > 0)
+            addTrimmed.push(i.trim());
+        // addTrimmed = additionals.filter(e => ((e.trim().length > 0) && e.trim()) );
+        console.log("addTrimmed============== ", addTrimmed);
+      }
+
+      let interests = [];
+      for(let item in bodyContent)
+          if (item.includes("interest"))
+              interests.push(bodyContent[item]);
+
+      interests = [...interests, ...addTrimmed];
+console.log("initial::::", initial, " - interests::", interests)
+      const profileObj = new Profile({
+          _id: profileId,
+          name: initial.name,
+          interests,
+          imagePath: initial.imagePath
+        });
+
       const error = await profileObj.validateSync();
       if (error)
-        throw new Error(error.message || "Error when updating. Please try later."); // Exit if the model is invalid      
-      // console.log("inside updateProfile!!!!!!!!!!!!!!!!! VALIDDDDDDDDDD MODEL!!!!!!!");
+        throw new Error(error.message || "Error when updating. Please try later."); // Exit if the model is invalid
+
+
+      const { imagePath } = files || {};
+console.log("imgaePATHHHHHHHHHH: ", imagePath);
+      // Model is valid, so save it
+      if (imagePath && imagePath.name) {
+        const recordImgAt = path.join(__dirname, "..", "public", "images", imagePath.name);
+        await imagePath.mv(recordImgAt, (err) => {
+          if (err) {
+            return({
+              obj: bodyContent,
+              errorMessage: err
+            })
+          }
+        });
+      }
 
       const profileToUpdate = await Profile.findById(profileObj._id);
       profileToUpdate.name = profileObj.name;
-      profileToUpdate.interests = profileObj.interests
-      // console.log("temppppppppppppppppppppppppppppppppp AFTER", profileToUpdate);
+      profileToUpdate.interests = profileObj.interests || []
+      profileToUpdate.imagePath = ((imagePath && imagePath.name) || initial.imagePath || "");
+console.log("update profileeeeeeeeeeeeeeeeeeee", profileToUpdate);
+      // if (imagePath && imagePath.name)
+      //   profileToUpdate.imagePath = imagePath.path;
+      
       const result = await profileToUpdate.save();
       console.log("-----result", result);
 
@@ -117,10 +179,16 @@ class ProfileOps {
         message: "Update has been done successfully! \\o/"
       };
       
-      console.log("=========RESPONSE:::::::: ", response);
     } catch (err) {
+      console.log("error on update!!!!!!!!!!!", err);
+      // const errorProfile = {
+      //   name: bodyContent.name,
+      //   interests: bodyContent.interests ?? [],
+      //   imagePath: bodyContent.imagePath ?? ""
+      // };
+
         response = {
-          obj: profileObj,
+          obj: initial,
           success: false,
           message: err.message || "Error on deleting profile. Please try again.",
         };
@@ -128,6 +196,8 @@ class ProfileOps {
 
     return response;
   }
+
+
 }
 
 module.exports = ProfileOps;

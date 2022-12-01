@@ -6,13 +6,15 @@
     <%   msg = message; %>
 <% } %>
 
-<% console.log(" inside EDIT: " + profile + "!!!"); %>
-<% const name = profile.name %>
-<% console.log("NAME::: " + name) %>
-<% const id = profile._id %>
+<% let imagePath = ""; %>
+<% if (typeof profile.imagePath !== "undefined") { %>
+    <% imagePath = profile.imagePath %>
+<% } %>
+
 <form 
     action="/profiles/update/<%= profile._id %>"
     method="post"
+    enctype="multipart/form-data"
 >
     <section class="contact-page">
         <div class="details-title-container">
@@ -31,14 +33,23 @@
                     <input type="text" name="interest<%= i%>" id="" value="<%= profile.interests[i] %>" class="text-field">
                 <% } %>
                 
-                <input type="text" name="additionals" placeholder="Add more interests separated by commas" class="text-field">
+                <input type="text" name="tempImagePath" value="<%= imagePath %>" hidden />
+                <input type="text" name="additionals" placeholder="Add more interests separated by commas" 
+                        class="text-field"">
                 
                 <h2>Profile's picture</h2>
-                <img
-                    src=""
-                    alt=""
-                    width="100%"
-                />
+                <span>Change Picture</span>
+                <input type="file" name="imagePath" accept="image/gif, image/jpeg" />
+                <% if ((typeof profile.imagePath === "undefined") || (profile.imagePath.length < 1)) { %>
+                    <h4 class="text-centered">No picture added so far</h4>
+                <% } else { %>
+                    <img
+                        src="/images/<%=profile.imagePath%>"
+                        alt=""
+                        width="100%"
+                        class="profile-pic"
+                    />
+                <% } %>
     
                 <input 
                     id="updateButton"

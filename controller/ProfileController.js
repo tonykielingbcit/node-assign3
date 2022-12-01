@@ -1,3 +1,5 @@
+"use strict"
+
 const Profile = require("../models/Profile.js");
 
 const ProfileActions = require("../data/profilesActions.js");
@@ -31,6 +33,7 @@ exports.Detail = async function (request, response) {
   let profile = await _profileActions.getProfileById(profileId);
   let profiles = await _profileActions.getAllProfiles();
   profiles = profiles.filter(e => e._id.toString() !== profileId);
+  console.log("===> profile: ", profile);
   if (profile) {
     response.render("profile-details", {
       title: "Express Yourself - " + profile.name,
@@ -58,14 +61,12 @@ exports.Create = async function (request, response) {
 // Handle profile form GET request
 exports.CreateProfile = async function (request, response) {
   // instantiate a new Profile Object populated with form data
-  let tempProfileObj = new Profile({
-    name: request.body.name
-  });
+  console.log("XXXXreq.files========== ", request.body, request.files);
 
   //
-  let responseObj = await _profileActions.createProfile(tempProfileObj);
+  let responseObj = await _profileActions.createProfile(request.body, request.files);
   // if no errors, save was successful
-  if (responseObj.errorMsg == "") {
+  if (responseObj.errorMsg === "") {
     let profiles = await _profileActions.getAllProfiles();
     profiles = profiles.filter(e => e._id.toString() !== responseObj.obj._id.toString());
 
@@ -79,7 +80,7 @@ exports.CreateProfile = async function (request, response) {
   }
   // There are errors. Show form the again with an error message.
   else {
-    console.log("An error occured. Item not created.");
+    console.log("XXXAn error occured. Item not created.");
     response.render("profile-create", {
       title: "Create Profile",
       profile: responseObj.obj,
@@ -138,10 +139,10 @@ exports.EditProfile = async (req, res) => {
 };
 
 exports.UpdateProfile = async (req, res) => {
-    // console.log("req.body", req.body);
+    console.log("===+++++++++++++++++++====req.body", req.body, req.files);
     const profileId = req.params.id;
 
-    const updateProfile = await _profileActions.updateProfile(req.body, profileId);
+    const updateProfile = await _profileActions.updateProfile(req.body, profileId, req.files);
 
     // RECEIVE A MESSAGE from the action and set to the render accordingly
     return res.render("profile-edit", {

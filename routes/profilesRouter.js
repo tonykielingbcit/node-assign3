@@ -1,7 +1,7 @@
 const express = require("express");
 const profilesRouter = express.Router();
 const path = require("path");
-const fs = require("fs").promises;
+// const fs = require("fs").promises;
 const profileController = require("../controller/ProfileController.js");
 
 profilesRouter.get("/", profileController.Index);
@@ -20,7 +20,7 @@ profilesRouter.get("/edit/:id", profileController.EditProfile);
 profilesRouter.post("/update/:id", profileController.UpdateProfile);
 
 
-
+/*
 profilesRouter.get("/create", (req, res) => {
   fs.readFile(path.join(__dirname, "../data/profiles.json"))
   .then((contents) => {
@@ -40,8 +40,9 @@ profilesRouter.get("/create", (req, res) => {
     res.end("Error");
   });
 });
+*/
 
-
+/*
 profilesRouter.get("/edit/:id", (req, res) => {
   fs.readFile(path.join(__dirname, "../data/profiles.json"))
   .then((contents) => {
@@ -82,32 +83,9 @@ profilesRouter.get("/delete/:id", (req, res) => {
     res.end("Error");
   });
 });
+*/
 
-
-profilesRouter.get("/", (req, res) => {
-  console.log("=====INSIDE PROFILEROUTERRRRRRR");
-
-  /*
-  fs.readFile(path.join(__dirname, "../data/profiles.json"))
-  .then((contents) => {
-      
-    // need to parse the raw buffer as json if we want to work with it
-    const profilesJson = JSON.parse(contents);
-    
-    //   prepare and send an OK response
-    res.render("profiles", {
-      title: "Express Yourself - Profiles",
-      profiles: profilesJson,
-    });
-  })
-  .catch((err) => {
-    console.log(err);
-    res.writeHead(500);
-    res.end("Error");
-  }); */
-});
-
-
+/*
 profilesRouter.get("/:id", (req, res) => {
     const id = req.params.id;
     fs.readFile(path.join(__dirname, "../data/profiles.json"))
@@ -139,7 +117,7 @@ profilesRouter.get("/:id", (req, res) => {
       res.end("Error");
     });
 });
-
+*/
 
 module.exports = profilesRouter;
 
