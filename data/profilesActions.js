@@ -165,13 +165,22 @@ class ProfileOps {
       profileToUpdate.interests = profileObj.interests || []
       profileToUpdate.imagePath = ((imagePath && imagePath.name) || initial.imagePath || "");
       
-      const result = await profileToUpdate.save();
-      console.log("-----result", result);
+      // const result = await profileToUpdate.save();
+      const result = await Profile.updateOne(
+        {_id: profileObj._id},
+        { 
+          $set: {
+            name: profileToUpdate.name,
+            interests: profileToUpdate.interests,
+            imagePath: profileToUpdate.imagePath
+          }
+        }
+      )
 
       response = {
-        profile: result,
+        profile: profileToUpdate,
         success: true,
-        message: "Update has been done successfully! \\o/"
+        message: result.modifiedCount > 0 ? "Update has been done successfully! \\o/" : "No changes detected."
       };
       
     } catch (err) {
