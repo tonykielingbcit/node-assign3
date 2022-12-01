@@ -124,8 +124,6 @@ class ProfileOps {
         for (let i of additionals)
           if (i.trim().length > 0)
             addTrimmed.push(i.trim());
-        // addTrimmed = additionals.filter(e => ((e.trim().length > 0) && e.trim()) );
-        console.log("addTrimmed============== ", addTrimmed);
       }
 
       let interests = [];
@@ -134,7 +132,7 @@ class ProfileOps {
               interests.push(bodyContent[item]);
 
       interests = [...interests, ...addTrimmed];
-console.log("initial::::", initial, " - interests::", interests)
+
       const profileObj = new Profile({
           _id: profileId,
           name: initial.name,
@@ -148,7 +146,7 @@ console.log("initial::::", initial, " - interests::", interests)
 
 
       const { imagePath } = files || {};
-console.log("imgaePATHHHHHHHHHH: ", imagePath);
+
       // Model is valid, so save it
       if (imagePath && imagePath.name) {
         const recordImgAt = path.join(__dirname, "..", "public", "images", imagePath.name);
@@ -166,9 +164,6 @@ console.log("imgaePATHHHHHHHHHH: ", imagePath);
       profileToUpdate.name = profileObj.name;
       profileToUpdate.interests = profileObj.interests || []
       profileToUpdate.imagePath = ((imagePath && imagePath.name) || initial.imagePath || "");
-console.log("update profileeeeeeeeeeeeeeeeeeee", profileToUpdate);
-      // if (imagePath && imagePath.name)
-      //   profileToUpdate.imagePath = imagePath.path;
       
       const result = await profileToUpdate.save();
       console.log("-----result", result);
@@ -181,11 +176,6 @@ console.log("update profileeeeeeeeeeeeeeeeeeee", profileToUpdate);
       
     } catch (err) {
       console.log("error on update!!!!!!!!!!!", err);
-      // const errorProfile = {
-      //   name: bodyContent.name,
-      //   interests: bodyContent.interests ?? [],
-      //   imagePath: bodyContent.imagePath ?? ""
-      // };
 
         response = {
           obj: initial,

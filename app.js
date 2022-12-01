@@ -3,8 +3,7 @@
 //MongoDB connection setup
 const { mongoose } = require("mongoose");
 const uri =
-//   "mongodb+srv://demo-user:lKgoG5hRan2y0MHT@ssd-0.lgsgjzq.mongodb.net/test-db?retryWrites=true&w=majority";
-"mongodb+srv://tonykbcit:M0ngoDB-BC17@cluster0.iw7hm03.mongodb.net/node-day-04?retryWrites=true&w=majority";
+  "mongodb+srv://***U-S-E-R***:***P-A-S-S-W-O-R-D***@cluster0.iw7hm03.mongodb.net/node-day-04?retryWrites=true&w=majority";
 
 // set up default mongoose connection
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -30,7 +29,7 @@ const fileUpload = require("express-fileupload");
 const PORT = process.env.PORT || 3003;
 
 // morgan is set ON
-// app.use(logger("combined"));
+app.use(logger("combined"));
 
 app.use(cors());
 
@@ -77,4 +76,3 @@ app.listen(PORT, () => {
     console.log(` => Server running at http://localhost:${PORT}`);
 });
   
-    

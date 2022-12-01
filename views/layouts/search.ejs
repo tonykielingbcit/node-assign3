@@ -1,0 +1,12 @@
+
+<form
+    action="/profiles/search"
+    method="post"
+>
+    <span class="search-name-label">Search for name: </span>
+    <input type="text" name="searchFor" id="">
+    <input type="submit" value="Search">
+    <% if (typeof showReturn !== "undefined") { %>
+        <span><a href="/profiles/" class="details-edit-bt">Return to full list</a></span>
+    <% } %>
+</form>

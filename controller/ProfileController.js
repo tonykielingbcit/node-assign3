@@ -1,6 +1,6 @@
 "use strict"
 
-const Profile = require("../models/Profile.js");
+// const Profile = require("../models/Profile.js");
 
 const ProfileActions = require("../data/profilesActions.js");
 // instantiate the class so we can use its methods
@@ -18,12 +18,12 @@ exports.Index = async function (request, response) {
 exports.Search = async (req, res) => {
     const nameToSearch = req.body.searchFor;
     const profiles = await _profileActions.searchFor(nameToSearch);
-    console.log("profileIsValid", profiles);
 
     return res.render("profile-search", {
         title: "Express Yourself - Search",
         profiles,
-        message: `No profile has been found for *${nameToSearch}*`
+        message: `No profile has been found for *${nameToSearch}*`,
+        showReturn: true
       });
 }
 
@@ -33,7 +33,7 @@ exports.Detail = async function (request, response) {
   let profile = await _profileActions.getProfileById(profileId);
   let profiles = await _profileActions.getAllProfiles();
   profiles = profiles.filter(e => e._id.toString() !== profileId);
-  console.log("===> profile: ", profile);
+
   if (profile) {
     response.render("profile-details", {
       title: "Express Yourself - " + profile.name,
@@ -61,11 +61,9 @@ exports.Create = async function (request, response) {
 // Handle profile form GET request
 exports.CreateProfile = async function (request, response) {
   // instantiate a new Profile Object populated with form data
-  console.log("XXXXreq.files========== ", request.body, request.files);
-
-  //
+  
   let responseObj = await _profileActions.createProfile(request.body, request.files);
-  // if no errors, save was successful
+  
   if (responseObj.errorMsg === "") {
     let profiles = await _profileActions.getAllProfiles();
     profiles = profiles.filter(e => e._id.toString() !== responseObj.obj._id.toString());
@@ -107,16 +105,12 @@ exports.Delete = async (req, res) => {
 
 
 exports.DeleteProfile = async (req, res) => {
-    console.log("go to DB to DELETEEEEEEEEEEEEEEE::::: " + req.params.id + "!!!");
     const profileId = req.params.id;
-    console.log(`loading single profile by id ${profileId}`);
+    
     let profile = await _profileActions.getProfileById(profileId);
 
     const deleteProfile = await _profileActions.deleteProfile(profileId);
-    console.log("--- deleteProfile:: ", deleteProfile);
-
-    // the deleteprofile.success will set the css-class for render
-    // red if fail blue if success
+    
     res.render("profile-delete", {
         title: "Delete Profile - Success",
         profile,
@@ -139,7 +133,6 @@ exports.EditProfile = async (req, res) => {
 };
 
 exports.UpdateProfile = async (req, res) => {
-    console.log("===+++++++++++++++++++====req.body", req.body, req.files);
     const profileId = req.params.id;
 
     const updateProfile = await _profileActions.updateProfile(req.body, profileId, req.files);

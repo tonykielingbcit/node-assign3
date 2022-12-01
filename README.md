@@ -1,12 +1,12 @@
 # BCIT - SSD
 ## Node Class
-### Day-02 assigment  
+### Assigment 03  
 <br />  
 
 **- Instalation**  
 On a terminal:
-1. `git clone https://github.com/tonykielingbcit/node-assign02`
-2. `cd node-assign02`
+1. `git clone https://github.com/tonykielingbcit/node-assign3`
+2. `cd node-assign3`
 3. `npm i`  
 <br />  
 
